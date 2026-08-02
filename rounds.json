@@ -23,15 +23,15 @@
       "date": "2026-08-02",
       "course": "sunland-st-sup",
       "arc": [
-        "Vinny led this thing for thirteen holes and lost it in about twenty minutes.",
-        "San Tan was survivable for everyone but Christian, who opened 7-6-6-6 and stood at +10 before the round had really started. Vinny turned in 39, Jeremy 42, Ryan 43 — and Ryan's 43 was a 37 with two haymakers buried in it, a 7 on the 3rd and an 8 on the 481-yard 8th. That 8th is the number one handicap hole and it took a piece out of all four of them; nobody made par.",
+        "Vinny had this round by the throat from the 6th hole to the 13th, then lost it in about twenty minutes.",
+        "San Tan was survivable for everyone but Christian, who opened 7-6-6-5 and stood at +9 before the round had really started. Vinny turned in 39, Jeremy 42, Ryan 44 — and Ryan's 44 was a 38 with two haymakers buried in it, a 7 on the 3rd and an 8 on the 481-yard 8th. That 8th is the number one handicap hole and it took a piece out of all four of them; nobody made par.",
         "Superstition is where it turned. Vinny gave a stroke back on the opening par 4 and never found it again, then made 5 on a 105-yard par 3 at the 14th and the lead was gone. Ryan played the nine in +1 with birdies at the 11th and the 15th — the only two red numbers on the entire card — took sole possession at the 14th, and was never caught.",
-        "Ryan 76. Vinny 81. Jeremy 82. Christian 89."
+        "Ryan 77. Vinny 81. Jeremy 82. Christian 88."
       ],
       "scores": {
-        "christian": [7, 6, 6, 6, 4, 5, 4, 8, 4, 5, 3, 4, 7, 3, 4, 5, 3, 5],
+        "christian": [7, 6, 6, 5, 4, 5, 4, 8, 4, 5, 3, 4, 7, 3, 4, 5, 3, 5],
         "jeremy":    [5, 4, 5, 4, 3, 5, 4, 7, 5, 5, 5, 5, 6, 3, 3, 5, 4, 4],
-        "ryan":      [4, 4, 7, 4, 4, 4, 4, 8, 4, 4, 2, 4, 5, 3, 2, 6, 3, 4],
+        "ryan":      [4, 4, 7, 5, 4, 4, 4, 8, 4, 4, 2, 4, 5, 3, 2, 6, 3, 4],
         "vinny":     [5, 4, 5, 4, 3, 4, 4, 7, 3, 6, 4, 4, 5, 5, 4, 5, 4, 5]
       }
     }
