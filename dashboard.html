@@ -1,0 +1,427 @@
+<title>The Tour</title>
+<style>
+:root{
+  --paper:#F2F4EE; --surface:#FCFCF9; --sunk:#E9ECE4;
+  --ink:#15211C; --body:#2E3A34; --muted:#63706A; --faint:#8D9891;
+  --line:#DBE0D7; --line-soft:#E7EBE3;
+  --pencil:#B0821A; --pencil-bright:#D9A227;
+  --under:#1E6B4E; --over:#B03A2E; --flat:#63706A;
+  --shadow:0 1px 2px rgba(21,33,28,.05), 0 6px 18px -10px rgba(21,33,28,.22);
+  --p0:#2F7D62; --p1:#B4553A; --p2:#3F6493; --p3:#7A5296; --p4:#8A6D1F; --p5:#3E7C86;
+  --font-display:"Arial Narrow","Avenir Next Condensed","Liberation Sans Narrow","Helvetica Neue",system-ui,sans-serif;
+  --font-body:Charter,"Bitstream Charter","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --font-data:ui-monospace,"SF Mono","Cascadia Mono",Consolas,"Roboto Mono",monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0F1714; --surface:#161F1B; --sunk:#121A17;
+    --ink:#E9EEE8; --body:#CBD4CD; --muted:#8FA098; --faint:#6D7C75;
+    --line:#25302B; --line-soft:#1E2723;
+    --pencil:#E3B04B; --pencil-bright:#F0C468;
+    --under:#57C593; --over:#E37766; --flat:#8FA098;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 22px -12px rgba(0,0,0,.6);
+    --p0:#5FC79C; --p1:#E5866A; --p2:#7FA6DE; --p3:#B58ACF; --p4:#D7B457; --p5:#6FC0CC;
+  }
+}
+:root[data-theme="light"]{
+  --paper:#F2F4EE; --surface:#FCFCF9; --sunk:#E9ECE4;
+  --ink:#15211C; --body:#2E3A34; --muted:#63706A; --faint:#8D9891;
+  --line:#DBE0D7; --line-soft:#E7EBE3;
+  --pencil:#B0821A; --pencil-bright:#D9A227;
+  --under:#1E6B4E; --over:#B03A2E; --flat:#63706A;
+  --shadow:0 1px 2px rgba(21,33,28,.05), 0 6px 18px -10px rgba(21,33,28,.22);
+  --p0:#2F7D62; --p1:#B4553A; --p2:#3F6493; --p3:#7A5296; --p4:#8A6D1F; --p5:#3E7C86;
+}
+:root[data-theme="dark"]{
+  --paper:#0F1714; --surface:#161F1B; --sunk:#121A17;
+  --ink:#E9EEE8; --body:#CBD4CD; --muted:#8FA098; --faint:#6D7C75;
+  --line:#25302B; --line-soft:#1E2723;
+  --pencil:#E3B04B; --pencil-bright:#F0C468;
+  --under:#57C593; --over:#E37766; --flat:#8FA098;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 22px -12px rgba(0,0,0,.6);
+  --p0:#5FC79C; --p1:#E5866A; --p2:#7FA6DE; --p3:#B58ACF; --p4:#D7B457; --p5:#6FC0CC;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--body);
+  font-family:var(--font-body); font-size:16px; line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:860px; margin:0 auto; padding:28px 18px 72px; display:flex; flex-direction:column; gap:34px}
+h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); margin:0; text-wrap:balance; font-weight:700}
+.sub{color:var(--faint); font-size:.82em; font-family:var(--font-display); letter-spacing:.02em}
+.lede{color:var(--muted); margin:.35rem 0 0; font-size:.94rem; max-width:60ch}
+
+/* masthead */
+.masthead{border-bottom:2px solid var(--ink); padding-bottom:14px}
+.eyebrow{
+  font-family:var(--font-display); font-size:.74rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--pencil); margin:0 0 6px;
+}
+.masthead h1{font-size:clamp(2.3rem,10vw,3.6rem); line-height:.94; letter-spacing:-.01em; text-transform:uppercase}
+.masthead p{margin:10px 0 0; color:var(--muted); font-size:.95rem}
+.meta{
+  display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:12px;
+  font-family:var(--font-data); font-size:.74rem; color:var(--faint);
+  text-transform:uppercase; letter-spacing:.06em;
+}
+
+.banner{
+  border:1px dashed var(--pencil); border-radius:3px; padding:11px 14px;
+  color:var(--muted); font-size:.9rem; background:var(--surface);
+}
+.banner b{color:var(--pencil); font-family:var(--font-display); letter-spacing:.02em}
+
+.block{display:flex; flex-direction:column; gap:14px}
+.block > h2{
+  font-size:.82rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+  border-bottom:1px solid var(--line); padding-bottom:7px;
+}
+.block > h2 + .lede{margin-top:-8px}
+
+/* standings */
+.ranks{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px}
+.rank{
+  display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:start;
+  background:var(--surface); border:1px solid var(--line); border-radius:3px;
+  padding:14px 15px; box-shadow:var(--shadow);
+}
+.rank:first-child{border-left:3px solid var(--pencil)}
+.rank-num{
+  font-family:var(--font-display); font-size:1.5rem; color:var(--faint);
+  line-height:1; padding-top:3px; font-variant-numeric:tabular-nums;
+}
+.rank:first-child .rank-num{color:var(--pencil)}
+.rank-main{min-width:0; display:flex; flex-direction:column; gap:9px}
+.rank-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px}
+.rank-head h3{font-size:1.35rem; letter-spacing:.01em}
+.rank-score{text-align:right; display:flex; align-items:baseline; gap:6px}
+.to-par{font-family:var(--font-data); font-size:1.2rem; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
+.to-par.under{color:var(--under)} .to-par.over{color:var(--over)}
+.rank-score .sub{font-size:.68rem; text-transform:uppercase; letter-spacing:.08em}
+.stats{display:flex; flex-wrap:wrap; gap:5px 20px; margin:0}
+.stat dt{
+  font-family:var(--font-display); font-size:.68rem; text-transform:uppercase;
+  letter-spacing:.1em; color:var(--faint);
+}
+.stat dd{margin:0; font-family:var(--font-data); font-size:.94rem; color:var(--ink); font-variant-numeric:tabular-nums}
+.stat dd .sub{font-family:var(--font-data)}
+.money.up{color:var(--under)} .money.down{color:var(--over)} .money.flat{color:var(--muted)}
+.rank-form{display:flex; flex-direction:column; align-items:center; gap:3px; padding-top:4px}
+.form-label{font-family:var(--font-display); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
+.spark{display:block; overflow:visible}
+.spark-line{fill:none; stroke:var(--muted); stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round}
+.spark-fill{fill:var(--line-soft); opacity:.85}
+.spark-dot{fill:var(--pencil-bright); stroke:var(--surface); stroke-width:1.4}
+.spark-empty{font-family:var(--font-data); color:var(--faint); font-size:.85rem}
+
+/* rounds */
+.rounds{display:flex; flex-direction:column; gap:9px}
+.round{background:var(--surface); border:1px solid var(--line); border-radius:3px; box-shadow:var(--shadow)}
+.round > summary{
+  display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center;
+  padding:13px 15px; cursor:pointer; list-style:none;
+}
+.round > summary::-webkit-details-marker{display:none}
+.round > summary:focus-visible{outline:2px solid var(--pencil); outline-offset:-2px}
+.round-when{
+  text-align:center; font-family:var(--font-display); line-height:1.05;
+  border-right:1px solid var(--line-soft); padding-right:14px; min-width:52px;
+}
+.round-date{display:block; font-size:1rem; color:var(--ink); font-weight:700; text-transform:uppercase; letter-spacing:.03em}
+.round-year{display:block; font-size:.68rem; color:var(--faint); letter-spacing:.08em}
+.round-what{min-width:0}
+.round-what h3{font-size:1.1rem}
+.round-what p{margin:1px 0 0; font-size:.88rem; color:var(--muted)}
+.chev{
+  width:8px; height:8px; border-right:1.5px solid var(--faint); border-bottom:1.5px solid var(--faint);
+  transform:rotate(45deg); transition:transform .18s ease; margin-right:4px;
+}
+.round[open] .chev{transform:rotate(-135deg)}
+.round-body{padding:0 15px 16px; display:flex; flex-direction:column; gap:12px}
+
+.card-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line); border-radius:2px}
+table.card{border-collapse:collapse; font-family:var(--font-data); font-size:.8rem; width:100%; font-variant-numeric:tabular-nums}
+table.card th, table.card td{
+  border-right:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);
+  padding:0; text-align:center; min-width:26px; height:29px;
+}
+table.card thead th{
+  background:var(--sunk); color:var(--muted); font-family:var(--font-display);
+  font-size:.72rem; font-weight:700; letter-spacing:.04em;
+}
+table.card th[scope="row"], table.card .corner{
+  text-align:left; padding:0 11px 0 9px; position:sticky; left:0; z-index:1;
+  background:var(--surface); font-family:var(--font-display); font-size:.85rem;
+  color:var(--ink); white-space:nowrap; border-right:1px solid var(--line);
+  min-width:74px; letter-spacing:.02em;
+}
+table.card .corner{background:var(--sunk); color:var(--muted); font-size:.72rem}
+table.card .parrow th[scope="row"], table.card .parrow td{background:var(--sunk); color:var(--muted)}
+table.card .side{background:var(--sunk); font-weight:700; color:var(--ink)}
+table.card .tot{border-left:1px solid var(--line)}
+table.card tr.win th[scope="row"]{color:var(--pencil)}
+.flag{margin-left:5px; color:var(--pencil-bright)}
+.cell.empty{color:var(--faint)}
+.mark{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:21px; height:21px; line-height:1; color:var(--ink);
+}
+.mark.birdie{border:1.5px solid var(--under); border-radius:50%; color:var(--under)}
+.mark.eagle{border:1.5px solid var(--under); border-radius:50%; color:var(--under); box-shadow:0 0 0 2.5px var(--surface),0 0 0 4px var(--under)}
+.mark.bogey{border:1.5px solid var(--over); color:var(--over)}
+.mark.double{border:1.5px solid var(--over); background:color-mix(in srgb, var(--over) 16%, transparent); color:var(--over)}
+
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{
+  font-family:var(--font-data); font-size:.78rem; padding:3px 9px; border-radius:2px;
+  border:1px solid var(--line); color:var(--muted); background:var(--sunk);
+}
+.chip.up{color:var(--under); border-color:color-mix(in srgb, var(--under) 40%, var(--line))}
+.chip.down{color:var(--over); border-color:color-mix(in srgb, var(--over) 40%, var(--line))}
+.notes{margin:0; font-size:.9rem; color:var(--muted); font-style:italic; max-width:62ch}
+.course-sub{
+  font-family:var(--font-display); font-size:.76rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--faint);
+}
+
+/* the arc */
+.arc{
+  border-top:1px solid var(--line); padding-top:15px; margin-top:3px;
+  display:flex; flex-direction:column; gap:11px;
+}
+.arc h4{font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted)}
+.arc-chart{overflow-x:auto; -webkit-overflow-scrolling:touch}
+.arc-chart svg{display:block; width:100%; min-width:520px; height:auto}
+.arc-chart .ax{stroke:var(--line-soft); stroke-width:1}
+.arc-chart .turn{stroke:var(--line); stroke-width:1; stroke-dasharray:2 4}
+.arc-chart .ax-t{
+  font-family:var(--font-data); font-size:9px; fill:var(--faint);
+}
+.arc-chart .trace{fill:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round}
+.arc-chart .trace-dot{stroke:var(--surface); stroke-width:1.5}
+.arc-chart .tether{stroke-width:1; opacity:.55}
+.arc-chart .trace-t{font-family:var(--font-display); font-size:11px; font-weight:700}
+.arc-key{margin:0; font-family:var(--font-data); font-size:.7rem; color:var(--faint)}
+.arc-text{display:flex; flex-direction:column; gap:10px; max-width:64ch}
+.arc-text p{margin:0; font-size:.96rem; line-height:1.65; color:var(--body)}
+.arc-text p:first-child{
+  font-size:1.12rem; line-height:1.45; color:var(--ink);
+  font-family:var(--font-display); letter-spacing:.005em;
+}
+.arc-text p:last-child{
+  font-family:var(--font-data); font-size:.86rem; color:var(--muted);
+  border-left:2px solid var(--pencil); padding-left:11px;
+}
+
+/* matrix */
+table.matrix{border-collapse:collapse; width:100%; font-family:var(--font-data); font-size:.85rem; font-variant-numeric:tabular-nums}
+table.matrix th, table.matrix td{border:1px solid var(--line-soft); padding:8px 10px; text-align:center; white-space:nowrap}
+table.matrix thead th, table.matrix th[scope="row"]{
+  font-family:var(--font-display); font-size:.82rem; color:var(--ink);
+  background:var(--sunk); letter-spacing:.02em;
+}
+table.matrix th[scope="row"]{text-align:left; position:sticky; left:0; z-index:1}
+table.matrix .corner{background:var(--sunk); border-color:var(--line-soft)}
+.h2h.up{color:var(--under)} .h2h.down{color:var(--over)} .h2h.flat{color:var(--muted)}
+.self{background:var(--sunk); color:var(--faint)}
+
+/* holes */
+.holes-course{display:flex; flex-direction:column; gap:11px}
+.holes-course h3{font-size:1.02rem}
+.holes-pair{display:grid; grid-template-columns:1fr; gap:16px}
+@media(min-width:620px){.holes-pair{grid-template-columns:1fr 1fr; gap:26px}}
+.holes-pair h4{
+  font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin-bottom:7px;
+}
+ul.holes{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px}
+ul.holes li{display:grid; grid-template-columns:22px 44px 1fr 40px; gap:8px; align-items:center}
+.hole-no{font-family:var(--font-display); font-size:1rem; color:var(--ink); font-weight:700; text-align:right}
+.hole-par, .hole-avg{font-family:var(--font-data); font-size:.75rem; color:var(--faint)}
+.hole-avg{text-align:right; color:var(--muted); font-variant-numeric:tabular-nums}
+.bar{display:block; height:6px; background:var(--sunk); border-radius:1px; overflow:hidden}
+.bar-fill{display:block; height:100%; border-radius:1px}
+.bar-fill.bad{background:var(--over)} .bar-fill.good{background:var(--under)}
+
+footer{
+  border-top:1px solid var(--line); padding-top:14px; color:var(--faint);
+  font-family:var(--font-data); font-size:.74rem; line-height:1.7;
+}
+footer .key{display:flex; flex-wrap:wrap; gap:6px 16px; margin-bottom:9px; align-items:center}
+footer .key span{display:inline-flex; align-items:center; gap:6px}
+
+@media(max-width:430px){
+  .rank{grid-template-columns:auto 1fr; gap:11px}
+  .rank-form{grid-column:2; flex-direction:row; align-items:center; gap:8px; padding-top:0}
+  .stats{gap:5px 14px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+</style>
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">Scorecard ledger</p>
+    <h1>The Tour</h1>
+    <p>Christian, Jeremy, Ryan, Vinny. Rounds, standings, and who owes who.</p>
+    <div class="meta">
+      <span>1 round</span>
+      <span>4 players</span>
+      <span>Sun Aug 2, 2026</span>
+    </div>
+  </header>
+  
+  
+    <section class="block">
+      <h2>Standings</h2>
+      <p class="lede">Ranked by average strokes to par per hole, so short rounds still count.</p>
+      <ol class="ranks">
+      <li class="rank">
+        <span class="rank-num">1</span>
+        <div class="rank-main">
+          <div class="rank-head">
+            <h3>Ryan Abalos</h3>
+            <div class="rank-score">
+              <span class="to-par over">+11.0</span>
+              <span class="sub">avg to par</span>
+            </div>
+          </div>
+          <dl class="stats">
+            <div class="stat"><dt>Rounds</dt><dd>1</dd></div>
+            <div class="stat"><dt>Avg</dt><dd>76.0</dd></div>
+            <div class="stat"><dt>Best</dt><dd>76 <span class="sub">(+11)</span></dd></div>
+            <div class="stat"><dt>Wins</dt><dd>1</dd></div>
+            <div class="stat"><dt>Birdies+</dt><dd>2</dd></div>
+            
+          </dl>
+        </div>
+        <div class="rank-form"><span class="spark-empty">—</span><span class="form-label">form</span></div>
+      </li>
+      <li class="rank">
+        <span class="rank-num">2</span>
+        <div class="rank-main">
+          <div class="rank-head">
+            <h3>Vinny Branciforte</h3>
+            <div class="rank-score">
+              <span class="to-par over">+16.0</span>
+              <span class="sub">avg to par</span>
+            </div>
+          </div>
+          <dl class="stats">
+            <div class="stat"><dt>Rounds</dt><dd>1</dd></div>
+            <div class="stat"><dt>Avg</dt><dd>81.0</dd></div>
+            <div class="stat"><dt>Best</dt><dd>81 <span class="sub">(+16)</span></dd></div>
+            <div class="stat"><dt>Wins</dt><dd>0</dd></div>
+            <div class="stat"><dt>Birdies+</dt><dd>0</dd></div>
+            
+          </dl>
+        </div>
+        <div class="rank-form"><span class="spark-empty">—</span><span class="form-label">form</span></div>
+      </li>
+      <li class="rank">
+        <span class="rank-num">3</span>
+        <div class="rank-main">
+          <div class="rank-head">
+            <h3>Jeremy Lynch</h3>
+            <div class="rank-score">
+              <span class="to-par over">+17.0</span>
+              <span class="sub">avg to par</span>
+            </div>
+          </div>
+          <dl class="stats">
+            <div class="stat"><dt>Rounds</dt><dd>1</dd></div>
+            <div class="stat"><dt>Avg</dt><dd>82.0</dd></div>
+            <div class="stat"><dt>Best</dt><dd>82 <span class="sub">(+17)</span></dd></div>
+            <div class="stat"><dt>Wins</dt><dd>0</dd></div>
+            <div class="stat"><dt>Birdies+</dt><dd>0</dd></div>
+            
+          </dl>
+        </div>
+        <div class="rank-form"><span class="spark-empty">—</span><span class="form-label">form</span></div>
+      </li>
+      <li class="rank">
+        <span class="rank-num">4</span>
+        <div class="rank-main">
+          <div class="rank-head">
+            <h3>Christian Soto</h3>
+            <div class="rank-score">
+              <span class="to-par over">+24.0</span>
+              <span class="sub">avg to par</span>
+            </div>
+          </div>
+          <dl class="stats">
+            <div class="stat"><dt>Rounds</dt><dd>1</dd></div>
+            <div class="stat"><dt>Avg</dt><dd>89.0</dd></div>
+            <div class="stat"><dt>Best</dt><dd>89 <span class="sub">(+24)</span></dd></div>
+            <div class="stat"><dt>Wins</dt><dd>0</dd></div>
+            <div class="stat"><dt>Birdies+</dt><dd>0</dd></div>
+            
+          </dl>
+        </div>
+        <div class="rank-form"><span class="spark-empty">—</span><span class="form-label">form</span></div>
+      </li></ol>
+    </section>
+  
+    <section class="block">
+      <h2>Rounds</h2>
+      <div class="rounds">
+      <details class="round" open>
+        <summary>
+          <div class="round-when">
+            <span class="round-date">Aug 2</span>
+            <span class="round-year">2026</span>
+          </div>
+          <div class="round-what">
+            <h3>Sunland Springs</h3>
+            <p>Ryan took it at 76</p>
+          </div>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="round-body">
+          <span class="course-sub">San Tan → Superstition · Mesa, AZ</span>
+          <div class="card-scroll">
+            <table class="card">
+              <thead><tr><th scope="col" class="corner">Hole</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th class="side">San Tan</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th class="side">Superstitio</th><th class="side tot">TOT</th></tr></thead>
+              <tbody>
+                <tr class="parrow"><th scope="row">Par</th><td>4</td><td>4</td><td>4</td><td>3</td><td>3</td><td>4</td><td>3</td><td>5</td><td>3</td><td class="side">33</td><td>4</td><td>3</td><td>3</td><td>5</td><td>3</td><td>3</td><td>4</td><td>3</td><td>4</td><td class="side">32</td><td class="side tot">65</td></tr>
+                <tr class="win"><th scope="row">Ryan<span class="flag">&#9873;</span></th><td class="cell"><span class="mark par">4</span></td><td class="cell"><span class="mark par">4</span></td><td class="cell"><span class="mark double">7</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark par">4</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark double">8</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="side">43</td><td class="cell"><span class="mark par">4</span></td><td class="cell"><span class="mark birdie">2</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark par">5</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark birdie">2</span></td><td class="cell"><span class="mark double">6</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark par">4</span></td><td class="side">33</td><td class="side tot">76</td></tr><tr><th scope="row">Vinny</th><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark par">4</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark par">4</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark double">7</span></td><td class="cell"><span class="mark par">3</span></td><td class="side">39</td><td class="cell"><span class="mark double">6</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark par">5</span></td><td class="cell"><span class="mark double">5</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="side">42</td><td class="side tot">81</td></tr><tr><th scope="row">Jeremy</th><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark par">4</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark double">7</span></td><td class="cell"><span class="mark double">5</span></td><td class="side">42</td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark double">5</span></td><td class="cell"><span class="mark double">5</span></td><td class="cell"><span class="mark bogey">6</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark par">4</span></td><td class="side">40</td><td class="side tot">82</td></tr><tr><th scope="row">Christian</th><td class="cell"><span class="mark double">7</span></td><td class="cell"><span class="mark double">6</span></td><td class="cell"><span class="mark double">6</span></td><td class="cell"><span class="mark double">6</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark double">8</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="side">50</td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark double">7</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark bogey">4</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="cell"><span class="mark par">3</span></td><td class="cell"><span class="mark bogey">5</span></td><td class="side">39</td><td class="side tot">89</td></tr>
+              </tbody>
+            </table>
+          </div>
+          
+          
+          
+          <div class="arc">
+            <h4>How it went</h4>
+            <div class="arc-chart">
+            <svg viewBox="0 0 620 210" role="img"
+                 aria-label="Running strokes over par through 18 holes">
+              <line class="ax" x1="30" y1="12.0" x2="542" y2="12.0"></line><text class="ax-t" x="24" y="15.5" text-anchor="end">E</text><line class="ax" x1="30" y1="47.8" x2="542" y2="47.8"></line><text class="ax-t" x="24" y="51.3" text-anchor="end">+5</text><line class="ax" x1="30" y1="83.7" x2="542" y2="83.7"></line><text class="ax-t" x="24" y="87.2" text-anchor="end">+10</text><line class="ax" x1="30" y1="119.5" x2="542" y2="119.5"></line><text class="ax-t" x="24" y="123.0" text-anchor="end">+15</text><line class="ax" x1="30" y1="155.3" x2="542" y2="155.3"></line><text class="ax-t" x="24" y="158.8" text-anchor="end">+20</text><line class="turn" x1="286.0" y1="12" x2="286.0" y2="184"></line><text class="ax-t" x="30.0" y="199" text-anchor="middle">1</text><text class="ax-t" x="150.5" y="199" text-anchor="middle">5</text><text class="ax-t" x="270.9" y="199" text-anchor="middle">9</text><text class="ax-t" x="301.1" y="199" text-anchor="middle">10</text><text class="ax-t" x="421.5" y="199" text-anchor="middle">14</text><text class="ax-t" x="542.0" y="199" text-anchor="middle">18</text><polyline class="trace" points="30.0,12.0 60.1,12.0 90.2,33.5 120.4,40.7 150.5,47.8 180.6,47.8 210.7,55.0 240.8,76.5 270.9,83.7 301.1,83.7 331.2,76.5 361.3,83.7 391.4,83.7 421.5,83.7 451.6,76.5 481.8,90.8 511.9,90.8 542.0,90.8" style="stroke:var(--p2)"></polyline><circle class="trace-dot" cx="542.0" cy="90.8" r="3" style="fill:var(--p2)"></circle><text class="trace-t" x="552.0" y="94.8" style="fill:var(--p2)">Ryan 76</text><polyline class="trace" points="30.0,19.2 60.1,19.2 90.2,26.3 120.4,33.5 150.5,33.5 180.6,33.5 210.7,40.7 240.8,55.0 270.9,55.0 301.1,69.3 331.2,76.5 361.3,83.7 391.4,83.7 421.5,98.0 451.6,105.2 481.8,112.3 511.9,119.5 542.0,126.7" style="stroke:var(--p3)"></polyline><circle class="trace-dot" cx="542.0" cy="126.7" r="3" style="fill:var(--p3)"></circle><text class="trace-t" x="552.0" y="130.7" style="fill:var(--p3)">Vinny 81</text><polyline class="trace" points="30.0,19.2 60.1,19.2 90.2,26.3 120.4,33.5 150.5,33.5 180.6,40.7 210.7,47.8 240.8,62.2 270.9,76.5 301.1,83.7 331.2,98.0 361.3,112.3 391.4,119.5 421.5,119.5 451.6,119.5 481.8,126.7 511.9,133.8 542.0,133.8" style="stroke:var(--p1)"></polyline><circle class="trace-dot" cx="542.0" cy="133.8" r="3" style="fill:var(--p1)"></circle><line class="tether" x1="546.0" y1="133.8" x2="550.0" y2="139.7" style="stroke:var(--p1)"></line><text class="trace-t" x="552.0" y="143.7" style="fill:var(--p1)">Jeremy 82</text><polyline class="trace" points="30.0,33.5 60.1,47.8 90.2,62.2 120.4,83.7 150.5,90.8 180.6,98.0 210.7,105.2 240.8,126.7 270.9,133.8 301.1,141.0 331.2,141.0 361.3,148.2 391.4,162.5 421.5,162.5 451.6,169.7 481.8,176.8 511.9,176.8 542.0,184.0" style="stroke:var(--p0)"></polyline><circle class="trace-dot" cx="542.0" cy="184.0" r="3" style="fill:var(--p0)"></circle><text class="trace-t" x="552.0" y="188.0" style="fill:var(--p0)">Christian 89</text>
+            </svg>
+          </div>
+            <p class="arc-key">Strokes over par, hole by hole. Lower is better; the tick is the turn.</p>
+            <div class="arc-text"><p>Vinny led this thing for thirteen holes and lost it in about twenty minutes.</p><p>San Tan was survivable for everyone but Christian, who opened 7-6-6-6 and stood at +10 before the round had really started. Vinny turned in 39, Jeremy 42, Ryan 43 — and Ryan&#x27;s 43 was a 37 with two haymakers buried in it, a 7 on the 3rd and an 8 on the 481-yard 8th. That 8th is the number one handicap hole and it took a piece out of all four of them; nobody made par.</p><p>Superstition is where it turned. Vinny gave a stroke back on the opening par 4 and never found it again, then made 5 on a 105-yard par 3 at the 14th and the lead was gone. Ryan played the nine in +1 with birdies at the 11th and the 15th — the only two red numbers on the entire card — took sole possession at the 14th, and was never caught.</p><p>Ryan 76. Vinny 81. Jeremy 82. Christian 89.</p></div>
+          </div>
+        </div>
+      </details></div>
+    </section>
+  
+    <section class="block">
+      <h2>Head to head</h2>
+      <p class="lede">Low gross in rounds you both played. Read across the row.</p>
+      <div class="card-scroll">
+        <table class="matrix">
+          <thead><tr><td class="corner"></td><th scope="col">Ryan</th><th scope="col">Vinny</th><th scope="col">Jeremy</th><th scope="col">Christian</th></tr></thead>
+          <tbody><tr><th scope="row">Ryan</th><td class="self">—</td><td class="h2h up">1&ndash;0</td><td class="h2h up">1&ndash;0</td><td class="h2h up">1&ndash;0</td></tr><tr><th scope="row">Vinny</th><td class="h2h down">0&ndash;1</td><td class="self">—</td><td class="h2h up">1&ndash;0</td><td class="h2h up">1&ndash;0</td></tr><tr><th scope="row">Jeremy</th><td class="h2h down">0&ndash;1</td><td class="h2h down">0&ndash;1</td><td class="self">—</td><td class="h2h up">1&ndash;0</td></tr><tr><th scope="row">Christian</th><td class="h2h down">0&ndash;1</td><td class="h2h down">0&ndash;1</td><td class="h2h down">0&ndash;1</td><td class="self">—</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  
+  <footer>
+    <div class="key">
+      <span><span class="mark birdie">3</span> birdie or better</span>
+      <span><span class="mark bogey">5</span> bogey</span>
+      <span><span class="mark double">7</span> double or worse</span>
+    </div>
+    Updated Aug 2, 2026. New scorecard? Send the photo &mdash; it gets read, added, and this page updates at the same link.
+  </footer>
+</div>
