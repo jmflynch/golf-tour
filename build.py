@@ -264,12 +264,14 @@ def standings_html(a):
             amt = f"+${m}" if m > 0 else (f"&minus;${abs(m)}" if m < 0 else "$0")
             money = (f'<div class="stat"><dt>Money</dt>'
                      f'<dd class="money {cls}">{amt}</dd></div>')
+        form = (f'<div class="rank-form">{sparkline(s["form"])}'
+                f'<span class="form-label">form</span></div>') if len(s["form"]) > 1 else ""
         out.append(f"""
       <li class="rank">
         <span class="rank-num">{i}</span>
         <div class="rank-main">
           <div class="rank-head">
-            <h3>{esc(s['name'])}</h3>
+            <h3><span class="n-full">{esc(s['name'])}</span><span class="n-short">{esc(s['short'])}</span></h3>
             <div class="rank-score">
               <span class="to-par {'under' if s['avg_to_par'] < 0 else 'over' if s['avg_to_par'] > 0 else ''}">{fmt_avg(s['avg_to_par'])}</span>
               <span class="sub">avg to par</span>
@@ -284,7 +286,7 @@ def standings_html(a):
             {money}
           </dl>
         </div>
-        <div class="rank-form">{sparkline(s['form'])}<span class="form-label">form</span></div>
+        {form}
       </li>""")
     return f'<ol class="ranks">{"".join(out)}</ol>'
 
@@ -646,10 +648,11 @@ h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); margin:0; text-wr
 .rank-main{min-width:0; display:flex; flex-direction:column; gap:9px}
 .rank-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px}
 .rank-head h3{font-size:1.35rem; letter-spacing:.01em}
-.rank-score{text-align:right; display:flex; align-items:baseline; gap:6px}
+.n-short{display:none}
+.rank-score{text-align:right; display:flex; align-items:baseline; gap:6px; flex:0 0 auto}
+.rank-score .sub{font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; white-space:nowrap}
 .to-par{font-family:var(--font-data); font-size:1.2rem; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
 .to-par.under{color:var(--under)} .to-par.over{color:var(--over)}
-.rank-score .sub{font-size:.68rem; text-transform:uppercase; letter-spacing:.08em}
 .stats{display:flex; flex-wrap:wrap; gap:5px 20px; margin:0}
 .stat dt{
   font-family:var(--font-display); font-size:.68rem; text-transform:uppercase;
@@ -801,10 +804,12 @@ footer{
 footer .key{display:flex; flex-wrap:wrap; gap:6px 16px; margin-bottom:9px; align-items:center}
 footer .key span{display:inline-flex; align-items:center; gap:6px}
 
-@media(max-width:430px){
+@media(max-width:470px){
   .rank{grid-template-columns:auto 1fr; gap:11px}
   .rank-form{grid-column:2; flex-direction:row; align-items:center; gap:8px; padding-top:0}
   .stats{gap:5px 14px}
+  .n-full{display:none}
+  .n-short{display:inline}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
 """
