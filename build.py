@@ -405,8 +405,11 @@ def arc_html(e):
     lo, hi = min(0, min(flat)), max(flat)
     span = (hi - lo) or 1
 
+    # right padding has to clear the longest end label, or long names clip
+    longest = max(len(f'{r["name"]} {r["gross"]}') for r, _ in traces)
     W, H = 620, 210
-    PAD_L, PAD_R, PAD_T, PAD_B = 30, 78, 12, 26
+    PAD_L, PAD_T, PAD_B = 30, 12, 26
+    PAD_R = max(78, min(190, round(longest * 5.6) + 18))
     px = lambda i: PAD_L + (i / (n - 1)) * (W - PAD_L - PAD_R)
     py = lambda v: PAD_T + ((v - lo) / span) * (H - PAD_T - PAD_B)
 

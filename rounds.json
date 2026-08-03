@@ -1,11 +1,11 @@
 {
   "group": "Niggoyim Golf Tour",
-  "tagline": "Christian, Jeremy, Ryan, Perc-Ty. Rounds, standings, and who owes who.",
+  "tagline": "Christian, Jeremy, Ryan, Percocet Tiger. Rounds, standings, and who owes who.",
   "players": [
     { "id": "christian", "name": "Christian Soto", "short": "Christian", "handicap": null },
     { "id": "jeremy", "name": "Jeremy Lynch", "short": "Jeremy", "handicap": null },
     { "id": "ryan", "name": "Ryan Abalos", "short": "Ryan", "handicap": null },
-    { "id": "vinny", "name": "Percocet Tiger", "short": "Perc-Ty", "handicap": null }
+    { "id": "vinny", "name": "Percocet Tiger", "short": "Percocet Tiger", "handicap": null }
   ],
   "courses": [
     {
@@ -23,10 +23,10 @@
       "date": "2026-08-02",
       "course": "sunland-st-sup",
       "arc": [
-        "Perc-Ty had this round by the throat from the 6th hole to the 13th, then lost it in about twenty minutes.",
-        "San Tan was survivable for everyone but Christian, who opened 7-6-6-5 and stood at +9 before the round had really started. Perc-Ty turned in 39, Jeremy 42, Ryan 44 — and Ryan's 44 was a 38 with two haymakers buried in it, a 7 on the 3rd and an 8 on the 481-yard 8th. That 8th is the number one handicap hole and it took a piece out of all four of them; nobody made par.",
-        "Superstition is where it turned. Perc-Ty gave a stroke back on the opening par 4 and never found it again, then made 5 on a 105-yard par 3 at the 14th and the lead was gone. Ryan played the nine in +1 with birdies at the 11th and the 15th — the only two red numbers on the entire card — took sole possession at the 14th, and was never caught.",
-        "Ryan 77. Perc-Ty 81. Jeremy 82. Christian 88."
+        "Percocet Tiger had this round by the throat from the 6th hole to the 13th, then lost it in about twenty minutes.",
+        "San Tan was survivable for everyone but Christian, who opened 7-6-6-5 and stood at +9 before the round had really started. Percocet Tiger turned in 39, Jeremy 42, Ryan 44 — and Ryan's 44 was a 38 with two haymakers buried in it, a 7 on the 3rd and an 8 on the 481-yard 8th. That 8th is the number one handicap hole and it took a piece out of all four of them; nobody made par.",
+        "Superstition is where it turned. Percocet Tiger gave a stroke back on the opening par 4 and never found it again, then made 5 on a 105-yard par 3 at the 14th and the lead was gone. Ryan played the nine in +1 with birdies at the 11th and the 15th — the only two red numbers on the entire card — took sole possession at the 14th, and was never caught.",
+        "Ryan 77. Percocet Tiger 81. Jeremy 82. Christian 88."
       ],
       "scores": {
         "christian": [7, 6, 6, 5, 4, 5, 4, 8, 4, 5, 3, 4, 7, 3, 4, 5, 3, 5],
