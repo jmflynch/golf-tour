@@ -805,6 +805,11 @@ footer{
   font-family:var(--font-data); font-size:.74rem; line-height:1.7;
 }
 footer .key{display:flex; flex-wrap:wrap; gap:6px 16px; margin-bottom:9px; align-items:center}
+footer .foot-link{
+  color:var(--pencil); text-decoration:none; font-family:var(--font-display);
+  letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--pencil);
+}
+footer .foot-link:hover, footer .foot-link:focus-visible{color:var(--ink); border-color:var(--ink)}
 footer .key span{display:inline-flex; align-items:center; gap:6px}
 
 @media(max-width:470px){
@@ -873,7 +878,8 @@ def render(a, data):
       <span><span class="mark bogey">5</span> bogey</span>
       <span><span class="mark double">7</span> double or worse</span>
     </div>
-    Updated {stamp}. New scorecard? Send the photo &mdash; it gets read, added, and this page updates at the same link.
+    Updated {stamp}. New scorecard? Send the photo &mdash; it gets read, added, and this page updates at the same link.<br>
+    <a class="foot-link" href="map.html">Live yardage view &rarr;</a> &nbsp;Sunland Springs, all 27 holes, GPS distances.
   </footer>
 </div>
 """
