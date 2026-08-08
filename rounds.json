@@ -392,15 +392,15 @@
           4,
           4,
           6,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          6,
+          5,
+          4,
+          5,
+          5,
+          4,
+          5,
+          6,
+          6
         ],
         "jeremy": [
           5,
@@ -412,15 +412,15 @@
           5,
           6,
           6,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          4,
+          6,
+          6,
+          5,
+          5,
+          4,
+          5,
+          5,
+          6
         ],
         "christian": [
           5,
@@ -432,15 +432,15 @@
           6,
           5,
           7,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          7,
+          5,
+          6,
+          6,
+          6,
+          4,
+          5,
+          5,
+          6
         ],
         "ryan": [
           5,
@@ -452,19 +452,25 @@
           6,
           3,
           6,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          6,
+          3,
+          4,
+          7,
+          4,
+          4,
+          6,
+          4,
+          4
         ]
       },
-      "headline": "Front nine in the books",
-      "deck": "Pink Starburst 42, Percocet Tiger 43, Phil Dickelson 47, Mijo Vato 50 through the turn. Back nine to come."
+      "headline": "One shot with two to play, five at the end",
+      "deck": "Pink Starburst 84, Percocet Tiger 89, Phil Dickelson 93, Mijo Vato 100 \u2014 Percocet Tiger was level after seven and one behind after sixteen, and lost by five.",
+      "arc": [
+        "Percocet Tiger drew level with Pink Starburst at the 7th, was one behind with two to play, and lost by five. The whole round happened in the last twenty minutes.",
+        "The front nine produced exactly one red number: Pink Starburst's 2 at the 5th, 125 yards, circled on the card. It bought him four shots of room and he had given every one of them back by the 7th, where Percocet Tiger pulled level at 33 apiece. Behind them it was already over \u2014 Phil Dickelson took 7 at the 4th and 6 at the 117-yard 8th to turn in 47, and Mijo Vato went out in 50 without making a par.",
+        "The back nine was two men and a one-shot gap that would not close. Phil Dickelson birdied the 10th, the only birdie of his round, and it changed nothing. Pink Starburst made 7 at the 13th \u2014 384 yards, the number two handicap \u2014 and the lead was back to one. It was still one after the 16th. Then the 17th went 6 to 4, and the 18th went 6 to 4 again with Pink Starburst birdieing the last. One shot became five without either of them doing anything dramatic.",
+        "Mijo Vato finished on exactly 100 and played eighteen holes without a par: seven bogeys, eleven doubles, nothing else. Pink Starburst 84. Percocet Tiger 89. Phil Dickelson 93. Mijo Vato 100."
+      ]
     }
   ]
 }
