@@ -442,7 +442,8 @@ def arc_html(e):
     longest = max(len(f'{r["name"]} {r["gross"]}') for r, _ in traces)
     W, H = 620, 210
     PAD_L, PAD_T, PAD_B = 30, 12, 26
-    PAD_R = max(78, min(190, round(longest * 5.6) + 18))
+    # 5.6px/char assumes Arial Narrow actually loaded; budget for a wider fallback
+    PAD_R = max(78, min(200, round(longest * 6.4) + 16))
     px = lambda i: PAD_L + (i / (n - 1)) * (W - PAD_L - PAD_R)
     py = lambda v: PAD_T + ((v - lo) / span) * (H - PAD_T - PAD_B)
 
