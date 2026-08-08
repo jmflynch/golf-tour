@@ -1,4 +1,4 @@
-# Saturday Golf — scorecard ledger
+# Bird to Boge — scorecard ledger
 
 Photo of a scorecard in, dashboard out. Everything lives in two files.
 
