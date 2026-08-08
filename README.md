@@ -33,7 +33,8 @@ C:\Users\Jeremy\AppData\Local\Programs\Python\Python312\python.exe C:\Users\Jere
   "group": "Saturday Golf",              // page title
   "tagline": "Rounds, standings, and who owes who.",
   "players": [
-    { "id": "jeremy", "name": "Jeremy", "handicap": null }
+    { "id": "jeremy", "name": "Jeremy", "handicap": null },
+    { "id": "chris", "name": "Chris", "hidden": true }   // tracked, but off the page
   ],
   "courses": [
     {
@@ -64,6 +65,7 @@ Rules the builder follows:
 - **Nine-hole rounds** — put `null` in the nine holes nobody played. Totals and standings adjust.
 - **Someone sat out** — just leave them out of that round's `scores`. The card gets a field-size tag (Twosome, Threesome, Foursome) and lists who played, so a short group never reads as missing scores.
 - **New player** — add to `players`, use the `id` in `scores`. Stats start from their first round.
+- **Someone doesn't want to be on the site** — set `"hidden": true` on their player record. Keep writing their scores into every round as normal; the builder drops them from the standings, the scorecard grids, head to head, the arc chart and the field-size counts, so a foursome with one hidden player renders as a threesome. Nothing is deleted — flip the flag back to `false` (or drop it) and every round they ever played reappears, fully computed. Their name may still be sitting in hand-written `headline`, `deck` and `arc` copy, though, which the builder can't rewrite for you — check those by hand.
 - **New course** — add to `courses` with its par array. Different courses compare fine, since standings rank on strokes-to-par per hole.
 - **Money is optional** — leave `money` off entirely and the dollar columns disappear.
 - **Ties** — a shared low round counts as half a win each.

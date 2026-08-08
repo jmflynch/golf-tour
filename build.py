@@ -66,10 +66,15 @@ def nice_date_full(iso):
 # ------------------------------------------------------------------ analysis
 
 def analyse(data):
-    players = {p["id"]: p for p in data["players"]}
+    # "hidden": true keeps a player's scores in rounds.json but leaves them out
+    # of everything the page renders. Since every table, card and chart is built
+    # from `stats`, dropping them here is enough — nothing downstream sees them.
+    players = {p["id"]: p for p in data["players"] if not p.get("hidden")}
     courses = {c["id"]: c for c in data["courses"]}
     rounds = sorted(data["rounds"], key=lambda r: r["date"])
 
+    # indexed over the full roster so hiding someone doesn't reshuffle the
+    # trace colours of everyone below them
     order = {p["id"]: i for i, p in enumerate(data["players"])}
 
     stats = {
