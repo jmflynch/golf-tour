@@ -1,6 +1,7 @@
 # Bird to Boge — scorecard ledger
 
-Photo of a scorecard in, dashboard out. Everything lives in two files.
+Photo of a scorecard in, dashboard out. Styled as a tabloid back page — every
+round is a headline, every table is a box score. Everything lives in two files.
 
 | File | What it is |
 |---|---|
@@ -46,6 +47,8 @@ C:\Users\Jeremy\AppData\Local\Programs\Python\Python312\python.exe C:\Users\Jere
       "date": "2026-08-02",              // YYYY-MM-DD, sorting depends on it
       "course": "riverbend",             // must match a course id
       "tees": "White",                   // optional
+      "headline": "Jeremy nips it by one",      // optional, back-page headline; auto-written if omitted
+      "deck": "Jeremy 84, Chris 85 — wind off the water all day.",  // optional subhead under the headline
       "notes": "Wind off the water all day.",   // optional
       "scores": {
         "jeremy": [5,4,4,6,4,5,3,5,6, 5,6,4,4,5,3,5,4,6]   // 18 entries; null for a hole not played
@@ -64,6 +67,7 @@ Rules the builder follows:
 - **New course** — add to `courses` with its par array. Different courses compare fine, since standings rank on strokes-to-par per hole.
 - **Money is optional** — leave `money` off entirely and the dollar columns disappear.
 - **Ties** — a shared low round counts as half a win each.
+- **Headline and deck are optional** — leave them off and the builder writes a formulaic one from the scores (`"Jeremy wins by 4"`). Write your own when a round deserves better copy; that's most of them.
 
 ## What the page computes
 
