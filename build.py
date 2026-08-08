@@ -66,10 +66,15 @@ def nice_date_full(iso):
 # ------------------------------------------------------------------ analysis
 
 def analyse(data):
-    players = {p["id"]: p for p in data["players"]}
+    # "hidden": true keeps a player's scores in rounds.json but leaves them out
+    # of everything the page renders. Since every table, card and chart is built
+    # from `stats`, dropping them here is enough — nothing downstream sees them.
+    players = {p["id"]: p for p in data["players"] if not p.get("hidden")}
     courses = {c["id"]: c for c in data["courses"]}
     rounds = sorted(data["rounds"], key=lambda r: r["date"])
 
+    # indexed over the full roster so hiding someone doesn't reshuffle the
+    # trace colours of everyone below them
     order = {p["id"]: i for i, p in enumerate(data["players"])}
 
     stats = {
@@ -231,13 +236,20 @@ def field_word(n):
     return FIELD_WORDS.get(n, f"{n} players")
 
 
+def article(n):
+    """'an 83' but 'a 91' — English goes by sound, not spelling."""
+    s = str(n)
+    # 11 and 18 only take "an" on their own; 110 reads "one hundred ten"
+    return "an" if s[0] == "8" or (len(s) == 2 and s in ("11", "18")) else "a"
+
+
 def auto_headline(rows, low):
     """Formulaic back-page headline for a round with no hand-written one."""
     winners = [r for r in rows if r["won"]]
     if len(winners) > 1:
         return f'{" & ".join(w["name"] for w in winners)} share the spoils'
     w = winners[0]
-    field = sorted((r["gross"] for r in rows if not r["won"]), default=None)
+    field = sorted(r["gross"] for r in rows if not r["won"])
     if field:
         margin = field[0] - low
         if margin == 1:
@@ -245,7 +257,7 @@ def auto_headline(rows, low):
         if margin >= 8:
             return f'{w["name"]} runs away with it'
         return f'{w["name"]} wins by {margin}'
-    return f'{w["name"]} cards a {low}'
+    return f'{w["name"]} cards {article(low)} {low}'
 
 
 def auto_deck(rows, course):
