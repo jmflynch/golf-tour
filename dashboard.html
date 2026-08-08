@@ -119,6 +119,26 @@ h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); margin:0; text-wr
 
 /* rounds */
 .rounds{display:flex; flex-direction:column; gap:9px}
+.field-chip{
+  font-family:var(--font-data); font-size:.62rem; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--muted); background:var(--sunk);
+  border:1px solid var(--line); border-radius:2px; padding:1px 6px;
+  vertical-align:.14em; white-space:nowrap; font-weight:400;
+}
+.round.small .field-chip{color:var(--pencil); border-color:var(--pencil)}
+
+.filter{display:flex; flex-wrap:wrap; gap:6px; margin-top:-4px}
+.filter input{position:absolute; opacity:0; pointer-events:none}
+.filter label{
+  font-family:var(--font-display); font-size:.72rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); background:var(--surface);
+  border:1px solid var(--line); border-radius:2px; padding:4px 11px; cursor:pointer;
+}
+.filter label:hover{color:var(--ink)}
+.filter input:checked + label{color:var(--paper); background:var(--ink); border-color:var(--ink)}
+.filter input:focus-visible + label{outline:2px solid var(--pencil); outline-offset:2px}
+.rounds-block:has(#ff-full:checked) .round.small{display:none}
+.rounds-block:has(#ff-small:checked) .round.full{display:none}
 .round{background:var(--surface); border:1px solid var(--line); border-radius:3px; box-shadow:var(--shadow)}
 .round > summary{
   display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center;
@@ -133,7 +153,7 @@ h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); margin:0; text-wr
 .round-date{display:block; font-size:1rem; color:var(--ink); font-weight:700; text-transform:uppercase; letter-spacing:.03em}
 .round-year{display:block; font-size:.68rem; color:var(--faint); letter-spacing:.08em}
 .round-what{min-width:0}
-.round-what h3{font-size:1.1rem}
+.round-what h3{font-size:1.1rem; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 8px}
 .round-what p{margin:1px 0 0; font-size:.88rem; color:var(--muted)}
 .chev{
   width:8px; height:8px; border-right:1.5px solid var(--faint); border-bottom:1.5px solid var(--faint);
@@ -297,7 +317,8 @@ footer .key span{display:inline-flex; align-items:center; gap:6px}
             <div class="stat"><dt>Rounds</dt><dd>1</dd></div>
             <div class="stat"><dt>Avg</dt><dd>77.0</dd></div>
             <div class="stat"><dt>Best</dt><dd>77 <span class="sub">(+12)</span></dd></div>
-            <div class="stat"><dt>Wins</dt><dd>1</dd></div>
+            <div class="stat"><dt>Wins</dt><dd>1 <span class="sub">of 1</span></dd></div>
+            
             <div class="stat"><dt>Birdies+</dt><dd>2</dd></div>
             
           </dl>
@@ -318,7 +339,8 @@ footer .key span{display:inline-flex; align-items:center; gap:6px}
             <div class="stat"><dt>Rounds</dt><dd>1</dd></div>
             <div class="stat"><dt>Avg</dt><dd>81.0</dd></div>
             <div class="stat"><dt>Best</dt><dd>81 <span class="sub">(+16)</span></dd></div>
-            <div class="stat"><dt>Wins</dt><dd>0</dd></div>
+            <div class="stat"><dt>Wins</dt><dd>0 <span class="sub">of 1</span></dd></div>
+            
             <div class="stat"><dt>Birdies+</dt><dd>0</dd></div>
             
           </dl>
@@ -339,7 +361,8 @@ footer .key span{display:inline-flex; align-items:center; gap:6px}
             <div class="stat"><dt>Rounds</dt><dd>1</dd></div>
             <div class="stat"><dt>Avg</dt><dd>82.0</dd></div>
             <div class="stat"><dt>Best</dt><dd>82 <span class="sub">(+17)</span></dd></div>
-            <div class="stat"><dt>Wins</dt><dd>0</dd></div>
+            <div class="stat"><dt>Wins</dt><dd>0 <span class="sub">of 1</span></dd></div>
+            
             <div class="stat"><dt>Birdies+</dt><dd>0</dd></div>
             
           </dl>
@@ -360,7 +383,8 @@ footer .key span{display:inline-flex; align-items:center; gap:6px}
             <div class="stat"><dt>Rounds</dt><dd>1</dd></div>
             <div class="stat"><dt>Avg</dt><dd>88.0</dd></div>
             <div class="stat"><dt>Best</dt><dd>88 <span class="sub">(+23)</span></dd></div>
-            <div class="stat"><dt>Wins</dt><dd>0</dd></div>
+            <div class="stat"><dt>Wins</dt><dd>0 <span class="sub">of 1</span></dd></div>
+            
             <div class="stat"><dt>Birdies+</dt><dd>0</dd></div>
             
           </dl>
@@ -369,17 +393,18 @@ footer .key span{display:inline-flex; align-items:center; gap:6px}
       </li></ol>
     </section>
   
-    <section class="block">
+    <section class="block rounds-block">
       <h2>Rounds</h2>
+      
       <div class="rounds">
-      <details class="round" open>
+      <details class="round full" open>
         <summary>
           <div class="round-when">
             <span class="round-date">Aug 2</span>
             <span class="round-year">2026</span>
           </div>
           <div class="round-what">
-            <h3>Sunland Springs</h3>
+            <h3>Sunland Springs <span class="field-chip">Foursome</span></h3>
             <p>Pink Starburst took it at 77</p>
           </div>
           <span class="chev" aria-hidden="true"></span>
@@ -430,7 +455,7 @@ footer .key span{display:inline-flex; align-items:center; gap:6px}
       <span><span class="mark bogey">5</span> bogey</span>
       <span><span class="mark double">7</span> double or worse</span>
     </div>
-    Updated Aug 2, 2026. New scorecard? Send the photo &mdash; it gets read, added, and this page updates at the same link.<br>
+    Updated Aug 8, 2026. New scorecard? Send the photo &mdash; it gets read, added, and this page updates at the same link.<br>
     <a class="foot-link" href="map.html">Live yardage view &rarr;</a> &nbsp;Sunland Springs, all 27 holes, GPS distances.
   </footer>
 </div>

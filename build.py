@@ -84,6 +84,8 @@ def analyse(data):
             "gross": 0,
             "to_par": 0,
             "wins": 0.0,
+            "beat": 0.0,            # opponents beaten, halves for ties
+            "faced": 0,             # opponents faced, across every field size
             "eagles": 0, "birdies": 0, "pars": 0, "bogeys": 0, "doubles": 0,
             "best": None,           # (to_par, gross, round)
             "form": [],             # to_par per round, chronological
@@ -132,6 +134,12 @@ def analyse(data):
             s["form"].append(r["to_par"])
             if r["won"]:
                 s["wins"] += 1.0 / len(winners)
+            # field-size neutral: a twosome win is one opponent beaten, not three
+            opps = [o for o in rows if o["id"] != r["id"]]
+            s["faced"] += len(opps)
+            s["beat"] += sum(1.0 if r["gross"] < o["gross"]
+                             else 0.5 if r["gross"] == o["gross"] else 0.0
+                             for o in opps)
             if s["best"] is None or r["to_par"] < s["best"][0]:
                 s["best"] = (r["to_par"], r["gross"], rnd)
             if r["money"] is not None:
@@ -155,13 +163,15 @@ def analyse(data):
                     s["by_par"][par[i]][0] += d
                     s["by_par"][par[i]][1] += 1
 
-        enriched.append({"round": rnd, "course": course, "rows": rows})
+        enriched.append({"round": rnd, "course": course, "rows": rows,
+                         "field": len(rows)})
 
     played = [s for s in stats.values() if s["rounds"]]
     for s in played:
         s["avg_to_par"] = s["to_par"] / s["rounds"]
         s["avg_gross"] = s["gross"] / s["rounds"]
         s["per_hole"] = s["to_par"] / s["holes"] if s["holes"] else 0
+        s["beat_rate"] = s["beat"] / s["faced"] if s["faced"] else None
     played.sort(key=lambda s: (s["per_hole"], -s["rounds"]))
 
     # head to head: pair -> [a_wins, b_wins, ties]
@@ -201,6 +211,7 @@ def analyse(data):
         "enriched": list(reversed(enriched)),   # newest first
         "standings": played, "h2h": h2h, "hole_stats": hole_stats,
         "any_money": any_money,
+        "mixed_fields": len({e["field"] for e in enriched}) > 1,
         "is_demo": bool(rounds) and all(r.get("demo") for r in rounds),
         "n_rounds": len(enriched),
         "span": (rounds[0]["date"], rounds[-1]["date"]) if rounds else None,
@@ -211,6 +222,13 @@ def analyse(data):
 
 def esc(s):
     return html.escape(str(s), quote=True)
+
+
+FIELD_WORDS = {1: "Solo", 2: "Twosome", 3: "Threesome", 4: "Foursome", 5: "Fivesome"}
+
+
+def field_word(n):
+    return FIELD_WORDS.get(n, f"{n} players")
 
 
 def score_class(diff):
@@ -257,6 +275,12 @@ def standings_html(a):
         best_txt = f'{best[1]} <span class="sub">({fmt_par(best[0])})</span>' if best else "—"
         wins = s["wins"]
         wins_txt = f"{wins:.0f}" if abs(wins - round(wins)) < 0.01 else f"{wins:.1f}"
+        wins_txt += f' <span class="sub">of {s["rounds"]}</span>'
+        beat = ""
+        if a["mixed_fields"] and s["beat_rate"] is not None:
+            beat = (f'<div class="stat"><dt>Beat rate</dt>'
+                    f'<dd>{s["beat_rate"] * 100:.0f}% '
+                    f'<span class="sub">({s["faced"]})</span></dd></div>')
         money = ""
         if a["any_money"]:
             m = s["money"]
@@ -282,6 +306,7 @@ def standings_html(a):
             <div class="stat"><dt>Avg</dt><dd>{s['avg_gross']:.1f}</dd></div>
             <div class="stat"><dt>Best</dt><dd>{best_txt}</dd></div>
             <div class="stat"><dt>Wins</dt><dd>{wins_txt}</dd></div>
+            {beat}
             <div class="stat"><dt>Birdies+</dt><dd>{s['birdies'] + s['eagles']}</dd></div>
             {money}
           </dl>
@@ -291,7 +316,7 @@ def standings_html(a):
     return f'<ol class="ranks">{"".join(out)}</ol>'
 
 
-def card_html(e, open_first):
+def card_html(e, open_first, roster=0):
     rnd, course, rows = e["round"], e["course"], e["rows"]
     par = course["par"]
     n = len(par)
@@ -350,16 +375,24 @@ def card_html(e, open_first):
     holes_played = max(r["holes"] for r in rows)
     hole_note = "" if holes_played == n else f' &middot; {holes_played} holes'
 
+    # who was in the field, so a twosome never reads as three guys with missing scores
+    field = len(rows)
+    chip = f'<span class="field-chip">{esc(field_word(field))}</span>'
+    who = (f' &middot; {esc(", ".join(r["name"] for r in rows))}'
+           if roster and field < roster else "")
+
+    size_cls = "full" if not roster or field >= roster else "small"
+
     return f"""
-      <details class="round"{" open" if open_first else ""}>
+      <details class="round {size_cls}"{" open" if open_first else ""}>
         <summary>
           <div class="round-when">
             <span class="round-date">{nice_date(rnd['date'])}</span>
             <span class="round-year">{rnd['date'][:4]}</span>
           </div>
           <div class="round-what">
-            <h3>{esc(course['name'])}</h3>
-            <p>{esc(', '.join(winners))} took it at {low}{tees}{hole_note}</p>
+            <h3>{esc(course['name'])} {chip}</h3>
+            <p>{esc(', '.join(winners))} took it at {low}{tees}{hole_note}{who}</p>
           </div>
           <span class="chev" aria-hidden="true"></span>
         </summary>
@@ -674,6 +707,26 @@ h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); margin:0; text-wr
 
 /* rounds */
 .rounds{display:flex; flex-direction:column; gap:9px}
+.field-chip{
+  font-family:var(--font-data); font-size:.62rem; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--muted); background:var(--sunk);
+  border:1px solid var(--line); border-radius:2px; padding:1px 6px;
+  vertical-align:.14em; white-space:nowrap; font-weight:400;
+}
+.round.small .field-chip{color:var(--pencil); border-color:var(--pencil)}
+
+.filter{display:flex; flex-wrap:wrap; gap:6px; margin-top:-4px}
+.filter input{position:absolute; opacity:0; pointer-events:none}
+.filter label{
+  font-family:var(--font-display); font-size:.72rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); background:var(--surface);
+  border:1px solid var(--line); border-radius:2px; padding:4px 11px; cursor:pointer;
+}
+.filter label:hover{color:var(--ink)}
+.filter input:checked + label{color:var(--paper); background:var(--ink); border-color:var(--ink)}
+.filter input:focus-visible + label{outline:2px solid var(--pencil); outline-offset:2px}
+.rounds-block:has(#ff-full:checked) .round.small{display:none}
+.rounds-block:has(#ff-small:checked) .round.full{display:none}
 .round{background:var(--surface); border:1px solid var(--line); border-radius:3px; box-shadow:var(--shadow)}
 .round > summary{
   display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center;
@@ -688,7 +741,7 @@ h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); margin:0; text-wr
 .round-date{display:block; font-size:1rem; color:var(--ink); font-weight:700; text-transform:uppercase; letter-spacing:.03em}
 .round-year{display:block; font-size:.68rem; color:var(--faint); letter-spacing:.08em}
 .round-what{min-width:0}
-.round-what h3{font-size:1.1rem}
+.round-what h3{font-size:1.1rem; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 8px}
 .round-what p{margin:1px 0 0; font-size:.88rem; color:var(--muted)}
 .chev{
   width:8px; height:8px; border-right:1.5px solid var(--faint); border-bottom:1.5px solid var(--faint);
@@ -837,18 +890,34 @@ def render(a, data):
         banner = ('<div class="banner"><b>No rounds yet.</b> Send a photo of the scorecard and the '
                   'first one lands here.</div>')
 
-    cards = "".join(card_html(e, i == 0) for i, e in enumerate(a["enriched"]))
+    # the roster is everyone who has played, not just the biggest group that showed up
+    roster = max([len(a["standings"])] + [e["field"] for e in a["enriched"]])
+    cards = "".join(card_html(e, i == 0, roster) for i, e in enumerate(a["enriched"]))
+
+    # the filter only earns its keep once there are enough rounds to scroll past
+    filt = ""
+    if a["mixed_fields"] and a["n_rounds"] >= 5:
+        filt = """
+      <div class="filter" role="group" aria-label="Filter rounds by field size">
+        <input type="radio" name="fieldf" id="ff-all" checked><label for="ff-all">All</label>
+        <input type="radio" name="fieldf" id="ff-full"><label for="ff-full">Full field</label>
+        <input type="radio" name="fieldf" id="ff-small"><label for="ff-small">Small groups</label>
+      </div>"""
+
     rounds_block = f"""
-    <section class="block">
+    <section class="block rounds-block">
       <h2>Rounds</h2>
+      {filt}
       <div class="rounds">{cards}</div>
     </section>""" if cards else ""
 
     standings = standings_html(a)
+    fair = (" Beat rate is the share of head-to-head match-ups won, so a twosome "
+            "and a foursome carry the same weight." if a["mixed_fields"] else "")
     standings_block = f"""
     <section class="block">
       <h2>Standings</h2>
-      <p class="lede">Ranked by average strokes to par per hole, so short rounds still count.</p>
+      <p class="lede">Ranked by average strokes to par per hole, so short rounds still count.{fair}</p>
       {standings}
     </section>""" if standings else ""
 
