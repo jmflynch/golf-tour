@@ -59,7 +59,7 @@ C:\Users\Jeremy\AppData\Local\Programs\Python\Python312\python.exe C:\Users\Jere
 Rules the builder follows:
 
 - **Nine-hole rounds** — put `null` in the nine holes nobody played. Totals and standings adjust.
-- **Someone sat out** — just leave them out of that round's `scores`.
+- **Someone sat out** — just leave them out of that round's `scores`. The card gets a field-size tag (Twosome, Threesome, Foursome) and lists who played, so a short group never reads as missing scores.
 - **New player** — add to `players`, use the `id` in `scores`. Stats start from their first round.
 - **New course** — add to `courses` with its par array. Different courses compare fine, since standings rank on strokes-to-par per hole.
 - **Money is optional** — leave `money` off entirely and the dollar columns disappear.
@@ -67,7 +67,8 @@ Rules the builder follows:
 
 ## What the page computes
 
-- **Standings** — average strokes to par per hole, so a nine-hole round doesn't distort the table. Plus scoring average, best round, wins, birdies, running money, and a form line over the last eight rounds.
-- **Rounds** — a real scorecard grid per round: circles for birdie-or-better, squares for bogey-or-worse, OUT/IN/TOT, and the winner flagged.
+- **Standings** — average strokes to par per hole, so a nine-hole round doesn't distort the table. Plus scoring average, best round, wins out of rounds played, birdies, running money, and a form line over the last eight rounds.
+- **Beat rate** — appears once the tour has rounds with different group sizes. The share of head-to-head match-ups won (ties count a half), with the number faced in parentheses. Winning a twosome is one opponent beaten, winning a foursome is three, so field size stops flattering anyone.
+- **Rounds** — a real scorecard grid per round: circles for birdie-or-better, squares for bogey-or-worse, OUT/IN/TOT, and the winner flagged. Each card is tagged with its field size. Once there are five or more rounds across mixed group sizes, a filter appears above them — All / Full field / Small groups. Standings always cover every round; the filter only narrows the list of cards.
 - **Head to head** — low-gross record against each other person, counting only rounds you both played.
 - **The holes** — once a course has two or more rounds, the three that play hardest and the three that give strokes back.
