@@ -381,14 +381,6 @@
     {
       "date": "2026-08-08",
       "course": "biltmore-links",
-      "headline": "Starburst eagles the 2nd, survives the rest",
-      "deck": "Pink Starburst 86, Percocet Tiger 90, Phil Dickelson 92, Mijo Vato 98 \u2014 one swing on the hardest hole on the course, then sixteen holes of hanging on.",
-      "arc": [
-        "Pink Starburst led this round from the second hole to the last and spent most of the afternoon one bad swing from losing it.",
-        "The lead came in a single stroke. The 2nd is 500 yards and the number one handicap on the card, and Pink Starburst made 3 on it \u2014 the first eagle of the tour, and three shots better than anything the other three could do with the hole. Then he didn't make another par until the 8th. Bogey, double, double, double through the middle of the front and the margin was back to one by the 7th, except the chasing was just as ugly: Phil Dickelson took 7 at the 4th and 6 at the 117-yard 8th, which is not a hole that is supposed to cost anybody anything. At the turn it was Pink Starburst 43, Percocet Tiger 45, Phil Dickelson 47, Mijo Vato 49.",
-        "Phil Dickelson birdied the 10th, a 502-yard par 5, and drew level with Percocet Tiger for the first time since the 7th \u2014 then played the last eight holes in +10 and finished behind him anyway. The real theatre was at the front of the field. Pink Starburst made 7 at the 13th and 6 at the 15th, a 162-yard par 3, and with two to play his lead was down to one. Percocet Tiger answered with 6 at the 17th and 6 at the closing par 5. Pink Starburst played those same two holes in 5-4, birdied the last, and turned a one-shot scrap into a four-shot win in about fifteen minutes.",
-        "Mijo Vato went eighteen holes without a par \u2014 nine bogeys, nine doubles, 98 on the nose. Pink Starburst 86. Percocet Tiger 90. Phil Dickelson 92. Mijo Vato 98."
-      ],
       "scores": {
         "vinny": [
           6,
@@ -396,19 +388,19 @@
           3,
           5,
           4,
-          6,
           4,
           4,
-          6,
-          6,
-          5,
-          4,
-          5,
-          4,
-          5,
           4,
           6,
-          6
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ],
         "jeremy": [
           5,
@@ -420,15 +412,15 @@
           5,
           6,
           6,
-          4,
-          6,
-          4,
-          6,
-          5,
-          4,
-          5,
-          5,
-          6
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ],
         "christian": [
           5,
@@ -437,40 +429,42 @@
           6,
           4,
           6,
-          5,
-          5,
-          7,
-          7,
-          5,
           6,
           5,
-          6,
-          4,
-          5,
-          5,
-          6
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ],
         "ryan": [
           5,
-          3,
+          5,
           4,
           5,
-          5,
-          6,
-          6,
-          3,
+          2,
           6,
           6,
           3,
-          4,
-          7,
-          4,
           6,
-          4,
-          5,
-          4
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
-      }
+      },
+      "headline": "Front nine in the books",
+      "deck": "Pink Starburst 42, Percocet Tiger 43, Phil Dickelson 47, Mijo Vato 50 through the turn. Back nine to come."
     }
   ]
 }
