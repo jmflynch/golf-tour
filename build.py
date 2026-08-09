@@ -338,6 +338,7 @@ def standings_html(a):
           </div>
           <dl class="stats">
             <div class="stat"><dt>Rounds</dt><dd>{s['rounds']}</dd></div>
+            <div class="stat"><dt>Total</dt><dd class="{'under' if s['to_par'] < 0 else ''}">{fmt_par(s['to_par'])}</dd></div>
             <div class="stat"><dt>Avg</dt><dd>{s['avg_gross']:.1f}</dd></div>
             <div class="stat"><dt>Best</dt><dd>{best_txt}</dd></div>
             <div class="stat"><dt>Wins</dt><dd>{wins_txt}</dd></div>
@@ -715,6 +716,7 @@ h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); margin:0; font-we
 }
 .stat dd{margin:0; font-family:var(--font-data); font-size:.9rem; color:var(--ink); font-variant-numeric:tabular-nums}
 .stat dd .sub{font-family:var(--font-data)}
+.stat dd.under{color:var(--red)}
 .money.up{color:var(--ink); font-weight:700} .money.down{color:var(--red)} .money.flat{color:var(--muted)}
 .rank-form{display:flex; flex-direction:column; align-items:center; gap:3px; padding-top:6px}
 .form-label{font-family:var(--font-data); font-size:.58rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint)}
