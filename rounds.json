@@ -227,6 +227,71 @@
         367,
         481
       ]
+    },
+    {
+      "id": "painted-mountain",
+      "name": "Painted Mountain",
+      "sub": "Mesa, AZ",
+      "par": [
+        5,
+        3,
+        4,
+        4,
+        3,
+        4,
+        5,
+        4,
+        5,
+        3,
+        5,
+        3,
+        4,
+        4,
+        3,
+        3,
+        4,
+        4
+      ],
+      "hcp": [
+        1,
+        15,
+        11,
+        7,
+        17,
+        9,
+        5,
+        13,
+        3,
+        18,
+        2,
+        12,
+        8,
+        16,
+        14,
+        4,
+        6,
+        10
+      ],
+      "yards": [
+        545,
+        183,
+        321,
+        327,
+        127,
+        306,
+        472,
+        246,
+        470,
+        122,
+        465,
+        154,
+        295,
+        297,
+        167,
+        150,
+        322,
+        321
+      ]
     }
   ],
   "rounds": [
@@ -473,6 +538,61 @@
         "Two red numbers on the whole card and both of them belonged to Pink Starburst. Pink Starburst 83. Percocet Tiger 91. Phil Dickelson 94."
       ],
       "tees": "White"
+    },
+    {
+      "date": "2026-08-09",
+      "course": "painted-mountain",
+      "tees": "White",
+      "headline": "Two roads to the same number: 89 apiece",
+      "deck": "Phil Dickelson and Percocet Tiger tied at 89 at Painted Mountain — three one-shot holes built Percocet Tiger's whole front-nine cushion, and one two-shot hole on the back gave it all back.",
+      "arc": [
+        "Three one-shot holes built the entire margin, and one two-shot hole gave it all back. Phil Dickelson and Percocet Tiger shot 89 apiece at Painted Mountain, and neither round looked anything like the other to get there.",
+        "Percocet Tiger made exactly one par on the front nine, at the 8th, and it was enough to lead by three. Phil Dickelson doubled the 2nd and 3rd while Tiger only bogeyed both, then bogeyed the 8th himself right as Tiger found his one par of the day. Three holes, three one-shot swings: Tiger turned in 46, Dickelson 49.",
+        "The back nine handed it straight back. Phil Dickelson opened with a par at the 122-yard 10th while Percocet Tiger bogeyed, matched him again with a par at the 14th, and then the 398-yard 17th did the real work — a par for Dickelson against a double-bogey six for Tiger, the two-shot swing that erased what was left of the morning. Tiger bogeyed the 18th to Dickelson's double, clawing one shot back — too little, too late.",
+        "Phil Dickelson 89. Percocet Tiger 89."
+      ],
+      "scores": {
+        "jeremy": [
+          6,
+          5,
+          6,
+          5,
+          5,
+          5,
+          6,
+          5,
+          6,
+          3,
+          6,
+          4,
+          5,
+          4,
+          4,
+          4,
+          4,
+          6
+        ],
+        "vinny": [
+          6,
+          4,
+          5,
+          5,
+          5,
+          5,
+          6,
+          4,
+          6,
+          4,
+          6,
+          4,
+          5,
+          5,
+          4,
+          4,
+          6,
+          5
+        ]
+      }
     }
   ]
 }
